@@ -1,4 +1,7 @@
-const phrases = require('./ru');
+const db = require('../db');
+const log = require('../logger')(module);
+
+db.connect();
 
 class User {
   constructor(name) {
@@ -6,10 +9,8 @@ class User {
   }
 
   hello(who) {
-    console.log(`${phrases.Hello}, ${who.name}`);
+    log(`${db.getPhrases('Hello')}, ${who.name}`);
   }
 }
 
-module.exports = {
-  User
-};
+exports.User = User;
