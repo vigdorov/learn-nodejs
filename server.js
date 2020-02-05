@@ -8,7 +8,13 @@ function run() {
   const petya = new User('Petya');
 
   vasya.hello(petya);
-  log(db.getPhrases('Run successful'));
+  console.log(1)
+  try {
+    db.getPhrases('Run successful2')
+  } catch(e) {
+    console.log(e);
+  }
+  
 }
 
 if (module.parent) {
