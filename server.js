@@ -1,24 +1,9 @@
-// module.exports = exports = this
-const {User} = require('./user');
-const db = require('./db');
-const log = require('./logger')(module);
+const http = require('http');
 
-function run() {
-  const vasya = new User('Vasya');
-  const petya = new User('Petya');
+const server = new http.Server();
 
-  vasya.hello(petya);
-  console.log(1)
-  try {
-    db.getPhrases('Run successful2')
-  } catch(e) {
-    console.log(e);
-  }
-  
-}
+server.listen(1337, '127.0.0.1');
 
-if (module.parent) {
-  exports.run = run;
-} else {
-  run();
-}
+server.on('request', (req, res) => {
+  res.end('Привет мир!');
+});
