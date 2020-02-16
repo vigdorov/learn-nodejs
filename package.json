@@ -4,15 +4,21 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon server",
+    "debug": "concurrently \"nodemon --inspect server\" \"node-inspect\"",
+    "start:chat": "concurrently \"nodemon lesson_27/back/server\" \"lite-server --baseDir=\"lesson_27/front\"\""
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@types/node": "^13.7.0"
+    "@types/node": "^13.7.0",
+    "concurrently": "^5.1.0"
   },
   "dependencies": {
-    "express": "^4.17.1"
+    "debug": "^4.1.1",
+    "express": "^4.17.1",
+    "mime": "^2.4.4",
+    "winston": "^3.2.1"
   }
 }
