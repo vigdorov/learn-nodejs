@@ -3,7 +3,7 @@ const fs = require('fs');
 
 const handler = (req, res) => {
     if (req.url === '/') {
-        fs.readFile('index.html', (err, content) => {
+        fs.readFile('index2.html', (err, content) => {
             if (err) throw err;
 
             res.end(content);
