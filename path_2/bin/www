@@ -7,12 +7,14 @@
 var app = require('../app');
 var debug = require('debug')('path-2:server');
 var http = require('http');
+var config = require('../config');
+var log = require('../lib/logger')(module);
 
 /**
  * Get port from environment and store in Express.
  */
+var port = config.get('port');
 
-var port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
 
 /**
@@ -30,26 +32,6 @@ server.on('error', onError);
 server.on('listening', onListening);
 
 /**
- * Normalize a port into a number, string, or false.
- */
-
-function normalizePort(val) {
-  var port = parseInt(val, 10);
-
-  if (isNaN(port)) {
-    // named pipe
-    return val;
-  }
-
-  if (port >= 0) {
-    // port number
-    return port;
-  }
-
-  return false;
-}
-
-/**
  * Event listener for HTTP server "error" event.
  */
 
@@ -65,11 +47,11 @@ function onError(error) {
   // handle specific listen errors with friendly messages
   switch (error.code) {
     case 'EACCES':
-      console.error(bind + ' requires elevated privileges');
+      log.error(bind + ' requires elevated privileges');
       process.exit(1);
       break;
     case 'EADDRINUSE':
-      console.error(bind + ' is already in use');
+      log.error(bind + ' is already in use');
       process.exit(1);
       break;
     default:
