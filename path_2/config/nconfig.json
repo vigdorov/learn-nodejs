@@ -2,6 +2,10 @@
     "port": 3050,
     "mongoose": {
         "uri": "mongodb://localhost/chat",
-        "options": {}
+        "options": {
+            "useNewUrlParser": true,
+            "useUnifiedTopology": true,
+            "useCreateIndex": true
+        }
     }
 }

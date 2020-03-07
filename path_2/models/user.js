@@ -1,4 +1,5 @@
 const crypto = require('crypto');
+const uuid = require('uuid');
 
 const mongoose = require('../lib/mongoose');
 const Schema = mongoose.Schema;
@@ -23,19 +24,19 @@ const schema = new Schema({
     }
 });
 
-schema.method.encryptPassword = password => {
+schema.methods.encryptPassword = function (password) {
     return crypto.createHmac('sha1', this.salt).update(password).digest('hex');
 };
 
 schema.virtual('password')
-    .set(password => {
+    .set(function (password) {
         this._plainPassword = password;
-        this.salt = Math.random + '';
+        this.salt = uuid.v4() + '';
         this.hashedPassword = this.encryptPassword(password);
     })
     .get(() => this._plainPassword);
 
-schema.method.checkPassword = password => {
+schema.methods.checkPassword = function (password) {
     return this.encryptPassword(password) === this.hashedPassword;
 };
 
