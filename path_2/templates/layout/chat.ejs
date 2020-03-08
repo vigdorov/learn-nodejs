@@ -1,0 +1,53 @@
+<% layout('../index') -%>
+<% block('title', 'Hi man!'); -%>
+
+<p class="lead">Добро пожаловать в чат, <%=user.get('username')%> </p>
+<div id="room">
+    <ul></ul>
+    <form>
+        <input class="form-control" autocomplete="off" autofocus placeholder="Message..." />
+    </form>
+</div>
+
+<script src="/vendors/bower_components/socket.io-client/dist/socket.io.js"></script>
+<script>
+    const room = document.getElementById('room');
+    const [msgContainer] = room.getElementsByTagName('ul');
+    const [form] = room.getElementsByTagName('form');
+    const [input] = room.getElementsByTagName('input');
+
+    const socket = io();
+
+    const renderRow = text => {
+        const li = document.createElement('li');
+        li.innerText = text;
+        msgContainer.appendChild(li);
+    };
+
+    const addMessage = ({username, text}) => {
+        renderRow(`${username}: ${text}`);
+    };
+
+    const joinUser = username => {
+        renderRow(`${username} joined to chat!`);
+    };
+
+    const leaveChat = username => {
+        renderRow(`${username} leaved chat!`);
+    }
+
+    form.addEventListener('submit', event => {
+        event.preventDefault();
+
+        const text = input.value;
+
+        socket.emit('message', text, addMessage);
+        input.value = '';
+    });
+
+    socket.on('message', addMessage);
+
+    socket.on('join', joinUser);
+
+    socket.on('leave', leaveChat);
+</script>

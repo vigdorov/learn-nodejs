@@ -1,0 +1,37 @@
+<% layout('../index') -%>
+<% block('title', 'Login'); -%>
+
+<form id="send-form">
+    <label>
+        Login:
+        <input id="username" />
+    </label>
+    <label>
+        Password
+        <input id="password" type="password" />
+    </label>
+    <button type="submit">login</button>
+</form>
+
+<script>
+    const form = document.getElementById('send-form');
+    const usernameInput = document.getElementById('username');
+    const passwordInput = document.getElementById('password');
+    form.addEventListener('submit', (o) => {
+        o.preventDefault();
+        fetch('/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                username: usernameInput.value,
+                password: passwordInput.value,
+            })
+        }).then(() => {
+            location.reload();
+        });
+        usernameInput.value = '';
+        passwordInput.value = '';
+    });
+</script>

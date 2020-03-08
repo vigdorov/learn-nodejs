@@ -7,5 +7,16 @@
             "useUnifiedTopology": true,
             "useCreateIndex": true
         }
+    },
+    "session": {
+        "secret": "secret-key",
+        "resave": false,
+        "saveUninitialized": true,
+        "key": "connect.sid",
+        "cookie": {
+            "path": "/",
+            "httpOnly": true,
+            "maxAge": null
+        }
     }
 }

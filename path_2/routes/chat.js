@@ -3,8 +3,8 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('./layout/page', {
-      title: 'Home page',
+  res.render('./layout/chat', {
+      title: 'Chat',
     });
 });
 

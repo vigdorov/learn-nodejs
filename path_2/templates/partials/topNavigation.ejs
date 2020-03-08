@@ -1,1 +1,46 @@
-<p>navigation</p>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/">Express Chat</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav w-100">
+            <li class="nav-item" name="/">
+                <a class="nav-link" href="/">Home</a>
+            </li>
+            <% if (user) { %>
+            <li class="nav-item" name="/chat">
+                <a class="nav-link" href="/chat">Chat</a>
+            </li>
+            <% } %>
+            <li class="nav-item ml-auto" name="/login">
+                <% if (user) { %>
+                <a class="nav-link" onclick="logout()">Logout</a>
+                <% } else { %>
+                <a class="nav-link" href="/login">Login</a>
+                <% } %>
+            </li>
+        </ul>
+    </div>
+</nav>
+<script>
+    const items = document.getElementsByClassName('nav-item');
+    Object.keys(items).forEach(key => {
+        const item = items[key];
+        
+        if (location.pathname === item.getAttribute('name')) {
+            item.classList.add('active');
+        }
+    });
+
+    function logout () {
+        fetch('/logout', {
+            method: 'POST',
+        }).then(() => {
+            location.reload();
+        });
+        return false;
+    }
+</script>

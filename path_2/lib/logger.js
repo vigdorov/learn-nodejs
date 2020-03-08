@@ -5,14 +5,16 @@ const getLogger = incomingModule => {
     const path = incomingModule.filename.split('/').slice(-2).join('/');
 
     return new winston.createLogger({
+        colorize: true,
+        level: (ENV === 'development') ? 'debug' : 'error',
+        label: path,
         transports: [
             new winston.transports.Console({
-                colorize: true,
-                level: (ENV === 'development') ? 'debug' : 'error',
-                label: path,
+                format: winston.format.simple(),
             }),
         ],
     });
 };
+
 
 module.exports = getLogger;

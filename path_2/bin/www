@@ -70,3 +70,7 @@ function onListening() {
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
 }
+
+const io = require('../socket')(server);
+
+app.set('io', io);
