@@ -76,29 +76,6 @@ module.exports = function (server) {
         });
     });
 
-    io.on('session:reload', sid => {
-        const clients = io.sockets.clients();
-        const client = clients.find(client => client.handshake.session.id === sid);
-
-        console.log('dd')
-
-        loadSession(sid, (err, session) => {
-            if (err) {
-                client.emit('error', 'server error');
-                client.disconnect();
-                return;
-            }
-
-            if (!session) {
-                client.emit('error', 'handshake unauthorized');
-                client.disconnect();
-                return;
-            }
-
-            client.handshake.session = session;
-        });
-    });
-
     io.sockets.on('connection', socket => {
         const {username} = socket.request.user;
         socket.broadcast.emit('join', username);
