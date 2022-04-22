@@ -22,7 +22,7 @@
     "mongodb": "^3.5.4",
     "mongoose": "^5.9.3",
     "morgan": "~1.9.1",
-    "nconf": "^0.10.0",
+    "nconf": "^0.11.4",
     "socket.io": "^2.3.0",
     "uuid": "^7.0.2",
     "winston": "^3.2.1"
